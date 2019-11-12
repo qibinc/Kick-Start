@@ -14,6 +14,9 @@ def dfs(n, h, a, b, suffix_sum_a, suffix_sum_b, i, h_a, h_b):
         else:
             return 0
 
+    if h_a >= h and h_b >= h:
+        return 3 ** (n - i)
+
     cnt = 0
     if h_a + suffix_sum_a[i] >= h and h_b + suffix_sum_b[i] - b[i] >= h:
         cnt += dfs(n, h, a, b, suffix_sum_a, suffix_sum_b, i + 1, h_a + a[i], h_b)
