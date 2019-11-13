@@ -1,14 +1,12 @@
 import sys
-from collections import defaultdict
 
-sys.setrecursionlimit(10 ** 6)
-
+sys.setrecursionlimit(100500)
 
 def init():
     num_villages = int(input())
     beauty = [None] + list(map(int, input().split()))
     assert len(beauty) == num_villages + 1
-    edges = defaultdict(list)
+    edges = [[] for _ in range(num_villages + 1)]
     for _ in range(num_villages - 1):
         u, v = list(map(int, input().split()))
         edges[u].append(v)
@@ -22,8 +20,6 @@ def dp(node, f, beauty, edges, parent):
         if child == parent:
             continue
         dp(child, f, beauty, edges, node)
-
-    f[node] = []
 
     # Case: build
     score = beauty[node]
@@ -61,7 +57,6 @@ if __name__ == "__main__":
     T = int(input())
     for case_id in range(T):
         num_villages, beauty, edges = init()
-        f = dict()
+        f = [[] for _ in range(num_villages + 1)]
         dp(1, f, beauty, edges, None)
-        # print(f)
         print("Case #{0}: {1}".format(case_id + 1, max(f[1])))
